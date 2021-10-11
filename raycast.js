@@ -1,4 +1,5 @@
 // http://lodev.org/cgtutor/raycasting.html
+img.crossOrigin = "Anonymous";
 var raycast = raycast || {};
 
 raycast.engine = (function () {

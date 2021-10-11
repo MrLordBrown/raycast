@@ -14,7 +14,7 @@ window.requestAnimFrame = (function(){
 function start() {
     document.onkeyup = raycast.keyhandler.onKeyup;
     document.onkeydown = raycast.keyhandler.onKeydown;
-    var textureFiles = ["brick.png", "ground.png", "sky.png"];
+    var textureFiles = ["https://stackblitz.com/files/web-platform-zudkyt/github/MrLordBrown/raycast/master/img/brick.png", "https://stackblitz.com/files/web-platform-zudkyt/github/MrLordBrown/raycast/master/img/ground.png", "https://stackblitz.com/files/web-platform-zudkyt/github/MrLordBrown/raycast/master/img/sky.png"];
     raycast.texture.initiateLoad(textureFiles, raycast.engine.start);
 };
   

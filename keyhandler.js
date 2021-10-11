@@ -1,65 +1,27 @@
 var raycast = raycast || {};
 
-raycast.keyhandler = (function () {
-  var codes = {
-    up: 38,
-    w: 87,
-    down: 40,
-    left: 37,
-    a: 65,
-    right: 39,
-    d: 68,
-    space: 32,
-    ctrl: 17,
-    esc: 27
-  };
-
-  var state = new Array();
-  var lastState = new Array();
-
-  for (var i = 0; i < 255; i++) {
-    state[i] = false; 
-    lastState[i] = false;
-  }
-
-  onKeyup = function (e) {
-    state[e.which] = false;
-    if (isUsedKey(e.which)) 
-      e.preventDefault();
-  }
-
-  onKeydown = function (e) {
-    state[e.which] = true;
-    if (isUsedKey(e.which)) 
-      e.preventDefault();
-  }
-
-  function isUsedKey(keycode) {
-    for (var key in codes) {
-      if (codes[key] == keycode) {
-        return true;
-      }
+window.requestAnimFrame = (function () {
+  return (
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function (callback, element) {
+      window.setTimeout(callback, 1000 / 60);
     }
-    return false;
-  }
-
-  isKeydown = function(keyname) {
-    return state[codes[keyname]];
-  }
-
-	isKeypress = function(keyname) {
-		return state[codes[keyname]] && !lastState[codes[keyname]];
-	}
-
-	tick = function() {
-		lastState = state.slice();
-	}
-
-  return {
-    onKeyup: onKeyup,
-    onKeydown: onKeydown,
-    isKeydown: isKeydown,
-    isKeypress: isKeypress,
-    tick: tick
-  };
+  );
 })();
+
+function start() {
+  document.onkeyup = raycast.keyhandler.onKeyup;
+  document.onkeydown = raycast.keyhandler.onKeydown;
+  var textureFiles = [
+    'https://stackblitz.com/files/web-platform-zudkyt/github/MrLordBrown/raycast/master/img/brick.png',
+    'https://stackblitz.com/files/web-platform-zudkyt/github/MrLordBrown/raycast/master/img/ground.png',
+    'https://stackblitz.com/files/web-platform-zudkyt/github/MrLordBrown/raycast/master/img/sky.png',
+  ];
+  raycast.texture.initiateLoad(textureFiles, raycast.engine.start);
+}
+
+window.onload = start;
